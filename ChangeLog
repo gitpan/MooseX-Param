@@ -1,0 +1,6 @@
+Revision history for Perl extension MooseX-Getopt
+
+0.01 Tues. March 13, 2007
+    - I got tired of writing this code 
+      over and over and over, so I made it 
+      a role :)
