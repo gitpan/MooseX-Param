@@ -2,14 +2,17 @@
 package MooseX::Param;
 use Moose::Role;
 
-our $VERSION   = '0.01';
+our $VERSION   = '0.02';
 our $AUTHORITY = 'cpan:STEVAN';
 
 has 'params' => (
-    is      => 'ro',
-    isa     => 'HashRef',
-    default => sub { {} },
+    is       => 'rw',
+    isa      => 'HashRef',
+    lazy     => 1,
+    builder  => 'init_params',
 );
+
+sub init_params { +{} }
 
 sub param {
     my $self = shift;
@@ -81,8 +84,8 @@ and each time it was the same. So I thought, why not put it in a role?
 =item I<params>
 
 This role provides a C<params> attribute which has a read-only accessor, 
-and a HashRef type constraint. It also provides a default empty HASH ref
-so that there is no need to initialize it.
+and a HashRef type constraint. It also adds a builder method (see 
+C<init_params> method below) to properly initalize it.
 
 =back
 
@@ -100,6 +103,14 @@ This is your standard L<CGI> style C<param> method. If passed no arguments,
 it will return a list of param names. If passed a single name argument it will 
 return the param associated with that name. If passed a key value pair (or set 
 of key value pairs) it will assign them into the params.
+
+=item I<init_params>
+
+This is the I<params> attribute C<builder> option, so it is called the 
+params are initialized. 
+
+B<NOTE:> You can override this by defining your own version in your class, 
+because local class methods beat role methods in composition.
 
 =item B<meta>
 

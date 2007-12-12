@@ -8,5 +8,6 @@ README
 lib/MooseX/Param.pm
 t/000_load.t
 t/001_basic.t
+t/002_with_init_params.t
 t/pod.t
 t/pod_coverage.t
